@@ -26,18 +26,18 @@ function tokenToFontDescription(
   helper: ReferenceHelper
 ): FontDescription {
   return {
-    lineHeight: mapFontSizeProp(value.lineHeight, helper),
-    fontSize: mapFontSizeProp(value.fontSize, helper),
+    lineHeight: mapMeasurementProp(value.lineHeight, helper),
+    fontSize: mapMeasurementProp(value.fontSize, helper),
     fontFamily: mapFontFamily(value.fontFamily, value.fontWeight, helper),
     fontWeight: mapFontWeight(value.fontWeight, helper),
-    letterSpacing: mapFontSizeProp(value.letterSpacing, helper),
+    letterSpacing: mapMeasurementProp(value.letterSpacing, helper),
     decoration: mapFontDecorationProp(value.textDecoration, helper),
   };
 }
 
 type FontProp = LineHeightTokenValue | FontSizeTokenValue | LetterSpacingTokenValue;
 
-function mapFontSizeProp(prop: Pick<FontProp, "referencedTokenId" | "measure"> | null, helper: ReferenceHelper): string {
+function mapMeasurementProp(prop: Pick<FontProp, "referencedTokenId" | "measure"> | null, helper: ReferenceHelper): string {
   if (!prop) {
     return 'null';
   }
@@ -53,9 +53,6 @@ function mapFontFamily(prop: FontFamilyTokenValue | null, weight: FontWeightToke
   }
   if (prop.referencedTokenId) {
     return helper.resolveTokenReference(prop.referencedTokenId)
-  }
-  if (weight?.text) {
-    return `${prop.text} ${weight.text}`;
   }
   return prop.text;
 }
@@ -77,7 +74,7 @@ function mapFontWeight(prop: FontWeightTokenValue | null, helper: ReferenceHelpe
     return helper.resolveTokenReference(prop.referencedTokenId)
   }
 
-  return fontWeightMapping[prop.text] ?? 'FontWeight.w400';
+  return fontWeightMapping[prop.text.toLowerCase()] ?? 'FontWeight.w400';
 }
 
 function mapFontDecorationProp(prop: TextDecorationTokenValue | null, helper: ReferenceHelper) {

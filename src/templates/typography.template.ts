@@ -42,14 +42,11 @@ class <%=it.className%> extends ThemeExtension<<%=it.className%>> {
     <% for(var typo in it.typographies) {%>
       <%=typo%>:  const TextStyle(
         fontSize: <%=it.typographies[typo].fontSize%>,
-        height: <%=it.typographies[typo].lineHeight%>, 
+        height: <%=it.typographies[typo].lineHeight%> / <%=it.typographies[typo].fontSize%>, 
         fontFamily: '<%=it.typographies[typo].fontFamily%>',
         fontWeight: <%=it.typographies[typo].fontWeight%>,
         letterSpacing: <%=it.typographies[typo].letterSpacing%>,
         decoration: <%=it.typographies[typo].decoration%>,
-        // paragraph spacing <-- geht nur in RichText
-        // paragraph indent <-- geht nur in RichText
-        // uppercase <-- muss händisch gemacht werden
       ),
     <% } %>
       );

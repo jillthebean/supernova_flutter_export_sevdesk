@@ -4,7 +4,7 @@
     "description": "Export your design system data into [PLATFORM / TECHNOLOGY]",
     "author": "JillyBean",
     "organization": "sevdesk",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "usesBrands": false,
     "usesThemes": true,
     "executable": "/dist/build.js",

@@ -3,6 +3,7 @@
     "baseUrl": "./",
     "target": "es2021",
     "outDir": "build",
+    "sourceMap": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "strictNullChecks": true,

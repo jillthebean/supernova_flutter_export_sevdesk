@@ -31,8 +31,14 @@ export async function fetchTokenData(
   // Apply theme, if specified by the VSCode extension or pipeline configuration
   let themeTokens: Record<string, Token[]> = {}
   const themes = await sdk.tokens.getTokenThemes(remoteVersionIdentifier)
+  themeTokens["webDefault"] = tokens;
   for (const theme of themes) {
-    themeTokens[theme.codeName] = await sdk.tokens.computeTokensByApplyingThemes(tokens, [theme])
+    const currentTokens = await sdk.tokens.computeTokensByApplyingThemes(tokens, [theme]);
+    if (theme.codeName == "mobile") {
+      tokens = currentTokens
+    } else {
+      themeTokens[theme.codeName] = currentTokens;
+    }
   }
   return [tokens, tokenGroups, themeTokens];
 }

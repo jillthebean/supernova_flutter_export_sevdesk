@@ -1,5 +1,8 @@
 const TerserPlugin = require("terser-webpack-plugin")
 const path = require("path")
+const webpack = require('webpack');
+
+
 
 module.exports = (env, argv) => ({
     mode: argv.mode === "production" ? "production" : "development",
@@ -13,6 +16,15 @@ module.exports = (env, argv) => ({
         rules: [{ test: /\.tsx?$/, use: "ts-loader", exclude: /node_modules/ }],
     },
 
+    plugins: [
+        new webpack.ProvidePlugin({
+            "Buffer": ['buffer', 'Buffer']
+        }),
+        new webpack.ProvidePlugin({
+            "Stream": ['stream', 'Stream']
+        })
+    ],
+
     // Webpack tries these extensions for you if you omit the extension like "import './file'"
     resolve: {
         extensions: [".tsx", ".ts", ".jsx", ".js"],
@@ -24,14 +36,13 @@ module.exports = (env, argv) => ({
             zlib: false,
             http: false,
             https: false,
-            stream: false,
             crypto: false,
             browser: false,
             util: false,
             url: false,
             console: require.resolve('console-browserify'),
             stream: require.resolve('stream-browserify'),
-            buffer: false,
+            buffer: require.resolve("buffer"),
             "crypto-browserify": false,
         },
     },
@@ -41,12 +52,12 @@ module.exports = (env, argv) => ({
         path: path.resolve(__dirname, "./dist/"),
     },
 
-    optimization: {
-        minimize: true,
-        minimizer: [
-            new TerserPlugin({
-                extractComments: false,
-            }),
-        ],
-    },
+    // optimization: {
+    //     minimize: true,
+    //     minimizer: [
+    //         new TerserPlugin({
+    //             extractComments: false,
+    //         }),
+    //     ],
+    // },
 })

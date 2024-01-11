@@ -12,6 +12,8 @@ import { renderConstantsFile } from "./templates/constants.template"
 import { renderPrimitiveColors } from "./templates/primitive_colors.template"
 import { renderShadows } from "./templates/shadows.template"
 import { renderTypographyScheme } from "./templates/typography.template"
+import { renderIconsFile } from "./templates/icons.template"
+import { processAssetData } from "./asset_export"
 
 export async function fetchTokenData(
   sdk: Supernova,
@@ -61,6 +63,8 @@ export function processTokenData(tokens: Token[], tokenGroups: TokenGroup[], the
   const spacingData = createGenericSpacings(helper);
 
   const typographyTemplateData = createTypography(helper);
+
+  const iconsData = processAssetData();
   return [
     FileHelper.createTextFile({
       relativePath: "./src/colors",
@@ -101,6 +105,11 @@ export function processTokenData(tokens: Token[], tokenGroups: TokenGroup[], the
       relativePath: "./src/typography",
       fileName: "typography.dart",
       content: renderTypographyScheme(eta, typographyTemplateData),
+    }),
+    FileHelper.createTextFile({
+      relativePath: "./src/icons",
+      fileName: "icons.dart",
+      content: renderIconsFile(eta, iconsData),
     }),
   ]
 }

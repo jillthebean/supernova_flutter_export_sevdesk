@@ -12,8 +12,6 @@ import { renderConstantsFile } from "./templates/constants.template"
 import { renderPrimitiveColors } from "./templates/primitive_colors.template"
 import { renderShadows } from "./templates/shadows.template"
 import { renderTypographyScheme } from "./templates/typography.template"
-import { renderIconsFile } from "./templates/icons.template"
-import { processAssetData } from "./asset_export"
 
 export async function fetchTokenData(
   sdk: Supernova,
@@ -64,7 +62,7 @@ export function processTokenData(tokens: Token[], tokenGroups: TokenGroup[], the
 
   const typographyTemplateData = createTypography(helper);
 
-  const iconsData = processAssetData();
+  // const iconsData = processAssetData();
   return [
     FileHelper.createTextFile({
       relativePath: "./src/colors",
@@ -106,10 +104,11 @@ export function processTokenData(tokens: Token[], tokenGroups: TokenGroup[], the
       fileName: "typography.dart",
       content: renderTypographyScheme(eta, typographyTemplateData),
     }),
-    FileHelper.createTextFile({
-      relativePath: "./src/icons",
-      fileName: "icons.dart",
-      content: renderIconsFile(eta, iconsData),
-    }),
+    // TODO add icons as PNGs again with proper assets paths in SevIcons
+    // FileHelper.createTextFile({
+    //   relativePath: "./src/icons",
+    //   fileName: "icons.dart",
+    //   content: renderIconsFile(eta, iconsData),
+    // }),
   ]
 }

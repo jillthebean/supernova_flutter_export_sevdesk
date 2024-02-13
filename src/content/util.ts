@@ -1,5 +1,5 @@
 import { NamingHelper, StringCase } from "@supernovaio/export-helpers";
-import { ColorToken, Token, TokenGroup, TokenType } from "@supernovaio/sdk-exporters";
+import { ColorToken, Token, TokenGroup, TokenType, TypographyToken } from "@supernovaio/sdk-exporters";
 
 // semantic tokens reference primitive tokens
 // therefore a primitive token is a token 
@@ -43,6 +43,19 @@ function generateTokenVariableName(token: Token, parent: TokenGroup, prefix: str
     return NamingHelper.codeSafeVariableNameForToken(token, StringCase.camelCase, parent, prefix);
 }
 
+const duplicateNamesMap = {
+    'headingHeading': 'heading',
+    'bodyBody': 'body',
+}
+
+function removeDuplicates(name: string): string {
+    let newName = `${name}`
+    for (let dup in duplicateNamesMap) {
+        newName = newName.replaceAll(dup, duplicateNamesMap[dup]);
+    }
+    return newName;
+}
+
 export function referenceHelper(tokens: Token[], groups: TokenGroup[]) {
     var tokenToVariableName = new Map<string, string>();
     var tokenToClassName = new Map<string, string>
@@ -62,6 +75,20 @@ export function referenceHelper(tokens: Token[], groups: TokenGroup[]) {
                 tokenToClassName[token.id] = className
                 tokenToVariableName[token.id] = name
             }
+        }
+        return name
+    }
+
+    function resolveTypoTokenVariableName(token: TypographyToken, className: string, prefix?: string): string {
+        let name = tokenToVariableName[token.id];
+        if (!tokenToVariableName.has(token.id)) {
+            const parent = groups.find((group) => group.id === token.parentGroupId)!
+            name = generateTokenVariableName(token, parent, prefix ?? null)
+            name = removeDuplicates(name);
+            // if a token is not referring to a primitive token
+            // resolve the depenency and refer to the primitive token
+            tokenToClassName[token.id] = className
+            tokenToVariableName[token.id] = name
         }
         return name
     }
@@ -89,6 +116,7 @@ export function referenceHelper(tokens: Token[], groups: TokenGroup[]) {
 
     return {
         resolveTokenVariableName,
+        resolveTypoTokenVariableName,
         resolveTokenReference,
         getTokensForType,
         getGroupsForType,

@@ -11,7 +11,8 @@ export function createTypography(
   const typoTokens = helper.getTokensForType<TypographyToken>(TokenType.typography);
   var typographies = new Map<string, FontDescription>();
   for (let typoToken of typoTokens) {
-    const variableName = helper.resolveTokenVariableName(typoToken, className);
+    const variableName = helper.resolveTypoTokenVariableName(typoToken, className);
+    if (variableName.indexOf("Desktop") != -1) continue;
     typographies[variableName] = tokenToFontDescription(typoToken.value, helper);
   }
 

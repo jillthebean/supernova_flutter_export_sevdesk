@@ -91,8 +91,45 @@ Actually non yet, but this is here for reference if we decide to add them
 
 - **generateDisclaimer:** Toggle to show a disclaimer indicating the file is auto-generated.
 
+## Running it locally
+
+To run this project locally, you have two options:
+- supernova cli
+- vscode plugin
+
+In both cases, get access to the supernova token first. For generation of these, look at [supernova tokens].
+
+First make sure, you have the latest changes by running
+```sh
+npm run build
+# or start it in watch mdoe
+npm run dev
+```
+to update the `./dist/build.js` with your latest changes.
+
+### Supernova CLI
+
+Make sure, the `$SUPERNOVA_TOKEN` is available and valid. Now you can run
+```sh
+npm run local
+# or if you want to fully customise the command
+npx supernova run-local-exporter --designSystemId=103465 --exporterDir=. --outputDir=export --apiKey=$SUPERNOVA_TOKEN --allowOverridingOutput
+```
+
+You can find the output in the `./export` folder locally.
+
+### VSCode Plugin
+
+Run `Supernova: Supernova Log In`, enter the token when asked, all the other options can be default values.
+
+Afterwards, you will see the supernova context added to the explorer view.
+You can now just run the latest local build by pressing the play button.
+![supernova example](./docs/vscode-example.png)
 
 [supernova]: https://www.supernova.io
 [supernova sdk]: https://developers.supernova.io/latest/
+[supernova tokens]: https://cloud.supernova.io/user-profile/authentication
+[supernova cli]: https://www.npmjs.com/package/@supernovaio/cli
+[supernova VSCode Plugin]: https://marketplace.visualstudio.com/items?itemName=SupernovaIO.pulsar-vsc-extension
 [flutter exporter]: https://github.com/Supernova-Studio/exporter-flutter
 [eta.js]: https://eta.js.org

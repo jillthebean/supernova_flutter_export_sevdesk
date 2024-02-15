@@ -1,6 +1,6 @@
 {
     "name": "@sevdesk/flutter-exporter",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "[DESCRIPTION]",
     "main": "index.js",
     "scripts": {

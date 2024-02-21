@@ -36,9 +36,8 @@ export async function fetchTokenData(
     const currentTokens = await sdk.tokens.computeTokensByApplyingThemes(tokens, [theme]);
     if (theme.codeName == "mobile") {
       tokens = currentTokens
-    } else {
-      themeTokens[theme.codeName] = currentTokens;
     }
+    themeTokens[theme.codeName] = currentTokens;
   }
   return [tokens, tokenGroups, themeTokens];
 }

@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "npx webpack --mode=development --watch",
         "build": "npx webpack --mode=production",
-        "local": "npx supernova run-local-exporter --allowOverridingOutput --designSystemId=103465 --exporterDir=. --outputDir=../lib "
+        "local": "npx supernova run-local-exporter --allowOverridingOutput --designSystemId=103465 --exporterDir=. --outputDir=.build ",
+        "copy-local": "cp -r .build/src/ ../sevmobile-mono/packages/sev_design_tokens/lib/src/"
     },
     "author": "jillybean",
     "license": "MIT",

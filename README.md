@@ -1,5 +1,7 @@
 # Sev Desk Supernova Flutter Exporter
 
+(!) Archived as this lives now inside the [sevdesk github organisation](https://github.com/sevdesk/supernova-flutter-export)
+
 As the default [flutter exporter] does not properly allow for themes,
 this exporter fixes this issue as well as preparing custom export formats easily.
 

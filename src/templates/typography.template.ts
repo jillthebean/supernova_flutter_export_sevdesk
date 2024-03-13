@@ -38,15 +38,16 @@ class <%=it.className%> extends ThemeExtension<<%=it.className%>> {
   <% } %>
   });
 
-  factory <%=it.className%>.init() => <%=it.className%>(
+  factory <%=it.className%>.init(Color defaultTextColor) => <%=it.className%>(
     <% for(var typo in it.typographies) {%>
-      <%=typo%>:  const TextStyle(
+      <%=typo%>:  TextStyle(
         fontSize: <%=it.typographies[typo].fontSize%>,
         height: <%=it.typographies[typo].lineHeight%> / <%=it.typographies[typo].fontSize%>, 
         fontFamily: '<%=it.typographies[typo].fontFamily%>',
         fontWeight: <%=it.typographies[typo].fontWeight%>,
         letterSpacing: <%=it.typographies[typo].letterSpacing%>,
         decoration: <%=it.typographies[typo].decoration%>,
+        color: defaultTextColor,
       ),
     <% } %>
       );

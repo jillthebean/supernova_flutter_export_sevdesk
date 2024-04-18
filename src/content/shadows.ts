@@ -34,12 +34,12 @@ function mapShadowValue(token: ShadowToken): ShadowData {
     const offsetY = token.value.map(x => x.y).reduce((a, b) => a + b, 0);
     const spreadRadius = token.value.map(x => x.spread).reduce((a, b) => a + b, 0);
     const color = token.value.reduce((prev, curr) => ({
-        a: prev.a + curr.color.opacity.measure,
+        a: prev.a + curr.opacity.measure,
         r: prev.r + curr.color.color.r,
         g: prev.g + curr.color.color.g,
         b: prev.b + curr.color.color.b,
     }), {
-        a: 0,
+        a: .0,
         r: 0,
         g: 0,
         b: 0
@@ -63,7 +63,7 @@ function padHexNumberTo2Digits(a: string): string {
 // opacity as percent (0 - 1)
 // r,g,b, as values from 0 - 255
 function convertARGBToFlutter(opacity: number, red: number, green: number, blue: number): string {
-    let a = (opacity * 255).toString(16).slice(0, 2);
+    let a = Math.round(opacity * 255).toString(16);
     let r = red.toString(16);
     let g = green.toString(16);
     let b = blue.toString(16);

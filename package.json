@@ -6,14 +6,14 @@
     "scripts": {
         "dev": "npx webpack --mode=development --watch",
         "build": "npx webpack --mode=production",
-        "local": "npx supernova run-local-exporter --allowOverridingOutput --designSystemId=103465 --exporterDir=. --outputDir=.build ",
+        "local": "npx supernova run-local-exporter --allowOverridingOutput --designSystemId=103465 --exporterDir=. --outputDir=.build",
         "copy-local": "cp -r .build/src/ ../sevmobile-mono/packages/sev_design_tokens/lib/src/"
     },
     "author": "jillybean",
     "license": "MIT",
     "dependencies": {
-        "@supernovaio/export-helpers": "latest",
-        "@supernovaio/sdk-exporters": "latest",
+        "@supernovaio/export-helpers": "1.0.6",
+        "@supernovaio/sdk-exporters": "2.0.4",
         "eta": "^3.2.0",
         "fantasticon": "^2.0.0"
     },
@@ -31,5 +31,6 @@
         "typescript": "^5.2.2",
         "webpack": "5.88.2",
         "webpack-cli": "^5.1.4"
-    }
+    },
+    "packageManager": "pnpm@9.6.0+sha512.38dc6fba8dba35b39340b9700112c2fe1e12f10b17134715a4aa98ccf7bb035e76fd981cf0bb384dfa98f8d6af5481c2bef2f4266a24bfa20c34eb7147ce0b5e"
 }

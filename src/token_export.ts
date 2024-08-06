@@ -37,7 +37,9 @@ export async function fetchTokenData(
     if (theme.codeName == "mobile") {
       tokens = currentTokens
     }
-    themeTokens[theme.codeName] = currentTokens;
+    
+    const improvedCodeName = 'sev' + theme.codeName.charAt(0).toUpperCase() + theme.codeName.slice(1)
+    themeTokens[improvedCodeName] = currentTokens;
   }
   return [tokens, tokenGroups, themeTokens];
 }

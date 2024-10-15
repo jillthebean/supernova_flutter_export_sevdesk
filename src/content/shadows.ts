@@ -34,7 +34,7 @@ function mapShadowValue(token: ShadowToken): ShadowData {
     const offsetY = token.value.map(x => x.y).reduce((a, b) => a + b, 0);
     const spreadRadius = token.value.map(x => x.spread).reduce((a, b) => a + b, 0);
     const color = token.value.reduce((prev, curr) => ({
-        a: prev.a + curr.opacity.measure,
+        a: prev.a + curr.opacity!.measure,
         r: prev.r + curr.color.color.r,
         g: prev.g + curr.color.color.g,
         b: prev.b + curr.color.color.b,

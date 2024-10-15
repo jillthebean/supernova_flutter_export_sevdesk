@@ -111,7 +111,7 @@ to update the `./dist/build.js` with your latest changes.
 
 Make sure, the `$SUPERNOVA_TOKEN` is available and valid. Now you can run
 ```sh
-npm run local
+npm run local -- --apiKey=$SUPERNOVA_TOKEN
 # or if you want to fully customise the command
 npx supernova run-local-exporter --designSystemId=103465 --exporterDir=. --outputDir=export --apiKey=$SUPERNOVA_TOKEN --allowOverridingOutput
 ```

@@ -4,7 +4,7 @@
     "description": "Export your design system data into Flutter with our custom theme extension and adjusted color swatches",
     "author": "JillTheBean",
     "organization": "sevdesk",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "usesBrands": false,
     "usesThemes": true,
     "executable": "/dist/build.js",

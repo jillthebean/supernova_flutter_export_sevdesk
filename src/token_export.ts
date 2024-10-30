@@ -97,7 +97,6 @@ export function processTokenData(tokens: Token[], tokenGroups: TokenGroup[], the
 
   const typographyTemplateData = createTypography(helper);
 
-  // const iconsData = processAssetData();
   return [
     FileHelper.createTextFile({
       relativePath: "./src/colors",
@@ -139,11 +138,5 @@ export function processTokenData(tokens: Token[], tokenGroups: TokenGroup[], the
       fileName: "typography.dart",
       content: renderTypographyScheme(eta, typographyTemplateData),
     }),
-    // TODO add icons as PNGs again with proper assets paths in SevIcons
-    // FileHelper.createTextFile({
-    //   relativePath: "./src/icons",
-    //   fileName: "icons.dart",
-    //   content: renderIconsFile(eta, iconsData),
-    // }),
   ]
 }

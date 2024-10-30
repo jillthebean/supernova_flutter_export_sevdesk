@@ -1,5 +1,5 @@
 import { FileHelper } from "@supernovaio/export-helpers"
-import { PulsarContext, RemoteVersionIdentifier, Supernova, Token, TokenGroup } from "@supernovaio/sdk-exporters"
+import { Brand, PulsarContext, RemoteVersionIdentifier, Supernova, Token, TokenGroup, TokenTheme } from "@supernovaio/sdk-exporters"
 import { Eta } from "eta"
 import { createPrimitiveColors } from "./content/primitive_colors"
 import { createFontSizes, createGenericSpacings, createLetterSpacings, createLineHeights } from "./content/primitive_dimensions"
@@ -13,36 +13,75 @@ import { renderPrimitiveColors } from "./templates/primitive_colors.template"
 import { renderShadows } from "./templates/shadows.template"
 import { renderTypographyScheme } from "./templates/typography.template"
 
+type TokenData = {
+  tokens: Array<Token>
+  tokenGroups: Array<TokenGroup>
+  themeTokens: Record<string, Token[]>
+}
+
 export async function fetchTokenData(
   sdk: Supernova,
   context: PulsarContext,
   remoteVersionIdentifier: RemoteVersionIdentifier,
 ): Promise<[Token[], TokenGroup[], Record<string, Token[]>]> {
   // Fetch the necessary data
-  let tokens = await sdk.tokens.getTokens(remoteVersionIdentifier)
-  let tokenGroups = await sdk.tokens.getTokenGroups(remoteVersionIdentifier)
+  let data = {
+    tokens: await sdk.tokens.getTokens(remoteVersionIdentifier),
+    tokenGroups: await sdk.tokens.getTokenGroups(remoteVersionIdentifier),
+    themeTokens: {},
+  };
 
   // Filter by brand, if specified by the VSCode extension or pipeline configuration
   if (context.brandId) {
-    tokens = tokens.filter((token) => token.brandId === context.brandId)
-    tokenGroups = tokenGroups.filter((tokenGroup) => tokenGroup.brandId === context.brandId)
+    const brands = await sdk.brands.getBrands(remoteVersionIdentifier)
+    data = applyBrand(data, context.brandId, brands)
   }
 
   // Apply theme, if specified by the VSCode extension or pipeline configuration
   let themeTokens: Record<string, Token[]> = {}
   const themes = await sdk.tokens.getTokenThemes(remoteVersionIdentifier)
-  themeTokens["webDefault"] = tokens;
+  data = await applyThemes(sdk, data, themes, context.themeIds);
+  return [data.tokens, data.tokenGroups, data.themeTokens];
+}
+
+function applyBrand(tokenData: TokenData, brandId: string, brands: Array<Brand>): TokenData {
+  const brand = brands.find((brand) => brand.id === brandId || brand.idInVersion === brandId)
+  if (!brand) {
+    throw new Error(`Unable to find brand ${brandId}.`)
+  }
+  tokenData.tokens = tokenData.tokens.filter((token) => token.brandId === brand.id);
+  tokenData.tokenGroups = tokenData.tokenGroups.filter((token) => token.brandId === brand.id);
+  return tokenData;
+}
+
+async function applyThemes(
+  sdk: Supernova, tokenData: TokenData, themes: Array<TokenTheme>, themeIds: string[] | null,
+): Promise<TokenData> {
+  let themesToApply = themes;
+  tokenData.themeTokens["webDefault"] = tokenData.tokens;
+  if (themeIds != null && themeIds.length > 0) {
+    themesToApply = themeIds.map((themeId) => {
+      const theme = themes.find((theme) => theme.id === themeId || theme.idInVersion === themeId)
+      if (!theme) {
+        throw new Error(`Unable to find theme ${themeId}.`)
+      }
+      return theme
+    })
+  }
+  let mobileTokens = tokenData.tokens;
   for (const theme of themes) {
-    const currentTokens = await sdk.tokens.computeTokensByApplyingThemes(tokens, tokens, [theme]);
+    const currentTokens = await sdk.tokens.computeTokensByApplyingThemes(tokenData.tokens, tokenData.tokens, [theme],);
     if (theme.codeName == "mobile") {
-      tokens = currentTokens
+      mobileTokens = currentTokens
     }
 
     const improvedCodeName = 'sev' + theme.codeName.charAt(0).toUpperCase() + theme.codeName.slice(1)
-    themeTokens[improvedCodeName] = currentTokens;
+    tokenData.themeTokens[improvedCodeName] = currentTokens;
   }
-  return [tokens, tokenGroups, themeTokens];
+  tokenData.tokens = mobileTokens;
+  return tokenData;
 }
+
 
 export function processTokenData(tokens: Token[], tokenGroups: TokenGroup[], themes: Record<string, Token[]>) {
   const eta = new Eta({

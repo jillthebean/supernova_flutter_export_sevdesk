@@ -1,4 +1,4 @@
-import { AnyOutputFile, PulsarContext, RemoteVersionIdentifier, Supernova } from "@supernovaio/sdk-exporters"
+import { Supernova, PulsarContext, RemoteVersionIdentifier, AnyOutputFile } from "@supernovaio/sdk-exporters"
 import { ExporterConfiguration } from "../config"
 import { fetchTokenData, processTokenData } from "./token_export"
 /**

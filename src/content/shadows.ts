@@ -1,6 +1,6 @@
 import { ShadowToken, TokenType } from "@supernovaio/sdk-exporters";
 import { ShadowData, ShadowTemplate } from "src/templates/shadows.template";
-import { ReferenceHelper } from "./util";
+import { ReferenceHelper } from "../util";
 
 const className = "OffenburgShadows";
 

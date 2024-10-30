@@ -1,6 +1,6 @@
 import { ColorToken, TokenGroup, TokenType } from "@supernovaio/sdk-exporters";
 import { PrimitiveColorsTemplateData } from "src/templates/primitive_colors.template";
-import { ReferenceHelper, flutterColorValue, groupVariableName } from "./util";
+import { ReferenceHelper, flutterColorValue, groupVariableName } from "../util";
 
 const className = "ColorPrimitives"
 

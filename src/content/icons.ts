@@ -1,7 +1,5 @@
-import { AnyOutputFile, ColorToken, TokenGroup, TokenType } from "@supernovaio/sdk-exporters";
-import { ReferenceHelper, flutterColorValue, groupVariableName } from "./util";
-import { FileHelper } from "@supernovaio/export-helpers";
-import { generateFonts, FontAssetType, OtherAssetType } from "fantasticon";
+import { generateFonts, FontAssetType } from "fantasticon";
+import { ReferenceHelper } from "src/util";
 
 export async function createIconsFont(helper: ReferenceHelper):
   Promise<string | Buffer> {

@@ -1,7 +1,7 @@
 import { FontSizeTokenValue, LetterSpacingTokenValue, LineHeightTokenValue, TokenType, TypographyToken, TypographyTokenValue, Unit } from "@supernovaio/sdk-exporters";
 import { FontFamilyTokenValue, FontWeightTokenValue, TextDecorationTokenValue } from "@supernovaio/sdk-exporters/build/sdk-typescript/src/model/tokens/SDKTokenValue";
 import { FontDescription, TypographyTemplateData } from "src/templates/typography.template";
-import { ReferenceHelper } from "./util";
+import { ReferenceHelper } from "../util";
 
 const className = "OffenburgTypography";
 

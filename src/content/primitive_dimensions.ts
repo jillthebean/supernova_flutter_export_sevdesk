@@ -1,6 +1,6 @@
 import { DimensionToken, FontSizeToken, LetterSpacingToken, LineHeightToken, SpaceToken, Token, TokenType } from "@supernovaio/sdk-exporters";
 import { ConstantsTemplate } from "src/templates/constants.template";
-import { ReferenceHelper } from "./util";
+import { ReferenceHelper } from "../util";
 
 type ConstantsDescription<T extends Token> = {
     className: string,

@@ -1,6 +1,6 @@
 import { ColorToken, Token, TokenType } from "@supernovaio/sdk-exporters";
 import { ColorSchemeTemplateData } from "src/templates/color_scheme.template";
-import { ReferenceHelper, isPrimitive } from "./util";
+import { ReferenceHelper, isPrimitive } from "../util";
 
 const className = "OffenburgColorScheme";
 

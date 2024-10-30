@@ -6,18 +6,13 @@ import { createFontSizes, createGenericSpacings, createLetterSpacings, createLin
 import { createColors } from "./content/semantic_colors"
 import { createShadows } from "./content/shadows"
 import { createTypography } from "./content/typography"
-import { referenceHelper } from "./content/util"
 import { renderColorScheme } from "./templates/color_scheme.template"
 import { renderConstantsFile } from "./templates/constants.template"
 import { renderPrimitiveColors } from "./templates/primitive_colors.template"
 import { renderShadows } from "./templates/shadows.template"
 import { renderTypographyScheme } from "./templates/typography.template"
+import { TokenData, referenceHelper } from "./util"
 
-type TokenData = {
-  tokens: Array<Token>
-  tokenGroups: Array<TokenGroup>
-  themeTokens: Record<string, Token[]>
-}
 
 export async function fetchTokenData(
   sdk: Supernova,
@@ -25,7 +20,7 @@ export async function fetchTokenData(
   remoteVersionIdentifier: RemoteVersionIdentifier,
 ): Promise<[Token[], TokenGroup[], Record<string, Token[]>]> {
   // Fetch the necessary data
-  let data = {
+  let data: TokenData = {
     tokens: await sdk.tokens.getTokens(remoteVersionIdentifier),
     tokenGroups: await sdk.tokens.getTokenGroups(remoteVersionIdentifier),
     themeTokens: {},

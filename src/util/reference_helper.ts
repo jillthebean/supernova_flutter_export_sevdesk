@@ -1,60 +1,30 @@
 import { NamingHelper, StringCase } from "@supernovaio/export-helpers";
 import { ColorToken, Token, TokenGroup, TokenType, TypographyToken } from "@supernovaio/sdk-exporters";
+import { tokenShadeName } from "./token_helper";
 
-// semantic tokens reference primitive tokens
-// therefore a primitive token is a token 
-// with an null referenceTokenId
-export function isPrimitive(token: Token): boolean {
-    if (!("value" in token)) return true
-    if (!("referenceTokenId" in (token as ColorToken))) return true
-    return (token as ColorToken).value.referencedTokenId == null
-}
-
-export function isSemantic(token: Token): boolean {
-    return !isPrimitive(token)
-}
-
-export function tokenVariableName(token: Token, parent: TokenGroup, prefix = "color"): string {
-    return NamingHelper.codeSafeVariableNameForToken(token, StringCase.camelCase, parent, prefix)
-}
-
-export function groupVariableName(group: TokenGroup): string {
-    return NamingHelper.codeSafeVariableName(["color", group.name], StringCase.camelCase,)
-}
-
-export function flutterColorValue(token: ColorToken) {
-    const hex = token.toHex8();
-    const alpha = hex.slice(7, 9).toUpperCase();
-    const rgb = hex.slice(1, 7).toUpperCase();
-    return `Color(0x${alpha}${rgb})`;
-}
-
-export function tokenShadeName(token: ColorToken, tokenGroup: TokenGroup) {
-    return NamingHelper.codeSafeVariableName(['color', tokenGroup.name], StringCase.camelCase) + `.shade${token.name}`;
-}
-
-export type ReferenceHelper = ReturnType<typeof referenceHelper>
 
 function generateTokenVariableName(token: Token, parent: TokenGroup, prefix: string | null) {
-    if (token.tokenType == TokenType.color && !isNaN(parseInt(token.name))) {
-        // we have a shade, as those token are color tokens with names consisting only of digits
-        return tokenShadeName(token as ColorToken, parent);
-    }
-    return NamingHelper.codeSafeVariableNameForToken(token, StringCase.camelCase, parent, prefix);
+  if (token.tokenType == TokenType.color && !isNaN(parseInt(token.name))) {
+      // we have a shade, as those token are color tokens with names consisting only of digits
+      return tokenShadeName(token as ColorToken, parent);
+  }
+  return NamingHelper.codeSafeVariableNameForToken(token, StringCase.camelCase, parent, prefix);
 }
 
 const duplicateNamesMap = {
-    'headingHeading': 'heading',
-    'bodyBody': 'body',
+  'headingHeading': 'heading',
+  'bodyBody': 'body',
 }
 
 function removeDuplicates(name: string): string {
-    let newName = `${name}`
-    for (let dup in duplicateNamesMap) {
-        newName = newName.replaceAll(dup, duplicateNamesMap[dup]);
-    }
-    return newName;
+  let newName = `${name}`
+  for (let dup in duplicateNamesMap) {
+      newName = newName.replaceAll(dup, duplicateNamesMap[dup]);
+  }
+  return newName;
 }
+
+export type ReferenceHelper = ReturnType<typeof referenceHelper>
 
 export function referenceHelper(tokens: Token[], groups: TokenGroup[]) {
     var tokenToVariableName = new Map<string, string>();

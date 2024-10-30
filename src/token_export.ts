@@ -33,11 +33,11 @@ export async function fetchTokenData(
   const themes = await sdk.tokens.getTokenThemes(remoteVersionIdentifier)
   themeTokens["webDefault"] = tokens;
   for (const theme of themes) {
-    const currentTokens = await sdk.tokens.computeTokensByApplyingThemes(tokens, [theme]);
+    const currentTokens = await sdk.tokens.computeTokensByApplyingThemes(tokens, tokens, [theme]);
     if (theme.codeName == "mobile") {
       tokens = currentTokens
     }
-    
+
     const improvedCodeName = 'sev' + theme.codeName.charAt(0).toUpperCase() + theme.codeName.slice(1)
     themeTokens[improvedCodeName] = currentTokens;
   }

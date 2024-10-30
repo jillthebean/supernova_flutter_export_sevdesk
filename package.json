@@ -12,18 +12,18 @@
     "author": "jillybean",
     "license": "MIT",
     "dependencies": {
-        "@supernovaio/export-helpers": "1.0.6",
-        "@supernovaio/sdk-exporters": "2.0.4",
-        "eta": "^3.2.0",
-        "fantasticon": "^2.0.0"
+        "@supernovaio/export-helpers": "1.0.16",
+        "@supernovaio/sdk-exporters": "2.0.26",
+        "eta": "^3.5.0",
+        "fantasticon": "^3.0.0"
     },
     "devDependencies": {
-        "@supernovaio/cli": "^1.0.3",
-        "@supernovaio/supernova-sdk": "^1.9.5",
-        "@types/node": "^20.10.5",
+        "@supernovaio/cli": "1.1.0",
+        "@supernovaio/supernova-sdk": "^1.9.36",
+        "@types/node": "^22.8.4",
         "buffer": "^6.0.3",
         "console-browserify": "^1.2.0",
-        "prettier": "3.0.3",
+        "prettier": "3.3.3",
         "punycode": "^2.3.1",
         "stream-browserify": "^3.0.0",
         "terser-webpack-plugin": "5.3.10",

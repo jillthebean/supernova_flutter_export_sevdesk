@@ -14,8 +14,7 @@
     "dependencies": {
         "@supernovaio/export-helpers": "1.0.16",
         "@supernovaio/sdk-exporters": "2.0.23",
-        "eta": "^3.5.0",
-        "fantasticon": "^3.0.0"
+        "eta": "^3.5.0"
     },
     "devDependencies": {
         "@supernovaio/cli": "1.1.0",

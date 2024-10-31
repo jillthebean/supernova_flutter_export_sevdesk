@@ -1,13 +1,13 @@
 import { ColorToken, Token, TokenType } from "@supernovaio/sdk-exporters";
 import { ColorSchemeTemplateData } from "src/templates/color_scheme.template";
-import { ReferenceHelper, isPrimitive } from "../util";
+import { ReferenceHelper, isSemantic } from "../util";
 
 const className = "OffenburgColorScheme";
 
 export function createColors(helper: ReferenceHelper, themeData: Record<string, Token[]>): ColorSchemeTemplateData {
   // Convert all color tokens to CSS variables
   const colorTokens = helper.getUnprocessedTokensForType<ColorToken>(TokenType.color)
-  const semanticColorTokens = colorTokens.filter(isPrimitive);
+  const semanticColorTokens = colorTokens.filter(isSemantic);
   const colorVariables = semanticColors(semanticColorTokens, helper)
 
   let themes = {

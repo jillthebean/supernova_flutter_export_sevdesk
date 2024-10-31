@@ -7,10 +7,16 @@ export type TokenData = {
   themeTokens: Record<string, Token[]>
 }
 
+let _primaryCollection: string | undefined = undefined;
 export function isPrimitive(token: Token): boolean {
-  if (!("value" in token)) return true
-  if (!("referenceTokenId" in (token as ColorToken))) return true
-  return (token as ColorToken).value.referencedTokenId == null
+  if (token.propertyValues["Collection"]) {
+    if (_primaryCollection == undefined) {
+      const collections = token.properties.find((x) => x.codeName == "Collection")
+      const primitiveCollection = collections?.options?.find((x) => x.name == "Primitive Tokens")
+      _primaryCollection = primitiveCollection?.id;
+    }
+  }
+  return token.propertyValues["Collection"] == _primaryCollection;
 }
 
 export function isSemantic(token: Token): boolean {

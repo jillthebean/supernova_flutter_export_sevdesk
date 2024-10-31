@@ -1,6 +1,6 @@
 import { ColorToken, TokenGroup, TokenType } from "@supernovaio/sdk-exporters";
 import { PrimitiveColorsTemplateData } from "src/templates/primitive_colors.template";
-import { ReferenceHelper, flutterColorValue, groupVariableName } from "../util";
+import { ReferenceHelper, flutterColorValue, groupVariableName, isPrimitive } from "../util";
 
 const className = "ColorPrimitives"
 
@@ -26,8 +26,9 @@ export function createPrimitiveColors(helper: ReferenceHelper):
     return prev;
   }, {} as Map<string, Map<string, string>>)
 
-  const colorPrimitives = colorTokens.filter(e => !(e.id in mappedTokens) && !e.value.referencedTokenId)
+  const colorPrimitives = colorTokens.filter(e => !(e.id in mappedTokens)).filter(isPrimitive);
   let colors = {} as Map<string, string>;
+
 
   for (let primitiveColor of colorPrimitives) {
     const name = helper.resolveTokenVariableName(primitiveColor, className);

@@ -18,7 +18,7 @@ export async function fetchTokenData(
   sdk: Supernova,
   context: PulsarContext,
   remoteVersionIdentifier: RemoteVersionIdentifier,
-): Promise<[Token[], TokenGroup[], Record<string, Token[]>]> {
+): Promise<TokenData> {
   // Fetch the necessary data
   let data: TokenData = {
     tokens: await sdk.tokens.getTokens(remoteVersionIdentifier),
@@ -33,10 +33,9 @@ export async function fetchTokenData(
   }
 
   // Apply theme, if specified by the VSCode extension or pipeline configuration
-  let themeTokens: Record<string, Token[]> = {}
   const themes = await sdk.tokens.getTokenThemes(remoteVersionIdentifier)
   data = await applyThemes(sdk, data, themes, context.themeIds);
-  return [data.tokens, data.tokenGroups, data.themeTokens];
+  return data;
 }
 
 function applyBrand(tokenData: TokenData, brandId: string, brands: Array<Brand>): TokenData {
@@ -78,7 +77,8 @@ async function applyThemes(
 }
 
 
-export function processTokenData(tokens: Token[], tokenGroups: TokenGroup[], themes: Record<string, Token[]>) {
+export function processTokenData(data) {
+  const { tokens, tokenGroups, themeTokens: themes } = data;
   const eta = new Eta({
     debug: true,
   });

@@ -1,6 +1,6 @@
 import { ColorToken, Token, TokenType } from "@supernovaio/sdk-exporters";
 import { ColorSchemeTemplateData } from "src/templates/color_scheme.template";
-import { ReferenceHelper, isSemantic } from "../util";
+import { ReferenceHelper, flutterColorValue, isSemantic } from "../util";
 
 const className = "OffenburgColorScheme";
 
@@ -35,7 +35,11 @@ function semanticColors(colorTokens: ColorToken[], helper: ReferenceHelper): Map
     if (variableNames.has(name)) {
       continue;
     }
-    variableNames[name] = helper.resolveTokenReference(token.value.referencedTokenId!);
+    if (!token.value.referencedTokenId) {
+      variableNames[name] = flutterColorValue(token);
+    } else {
+      variableNames[name] = helper.resolveTokenReference(token.value.referencedTokenId!);
+    }
   }
   return variableNames;
 }

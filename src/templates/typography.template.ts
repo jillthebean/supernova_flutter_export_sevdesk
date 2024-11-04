@@ -1,7 +1,7 @@
 import { Eta } from "eta";
 
 export function renderTypographyScheme(eta: Eta, data: TypographyTemplateData): string {
-    return eta.renderString(typographyTemplate, data);
+  return eta.renderString(typographyTemplate, data);
 }
 
 export type FontDescription = {
@@ -23,6 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:sev_design_tokens/src/typography/font_sizes.dart';
 import 'package:sev_design_tokens/src/typography/letter_spacings.dart';
 import 'package:sev_design_tokens/src/typography/line_heights.dart';
+import 'package:sev_design_tokens/src/dimensions/spacings.dart';
 
 export 'package:sev_design_tokens/src/typography/font_sizes.dart';
 export 'package:sev_design_tokens/src/typography/letter_spacings.dart';

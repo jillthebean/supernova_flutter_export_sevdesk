@@ -1,5 +1,5 @@
 import { FileHelper, NamingHelper, StringCase } from "@supernovaio/export-helpers";
-import { AnyOutputFile, AssetFormat, AssetGroup, AssetScale, PulsarContext, RemoteVersionIdentifier, RenderedAsset, Supernova } from "@supernovaio/sdk-exporters";
+import { AnyOutputFile, AssetFormat, AssetScale, RemoteVersionIdentifier, RenderedAsset, Supernova } from "@supernovaio/sdk-exporters";
 
 
 type DownloadSpec = {
@@ -10,7 +10,7 @@ type DownloadSpec = {
 
 export async function fetchAssets(
   sdk: Supernova,
-  _context: PulsarContext,
+  basePath: string,
   remoteVersionIdentifier: RemoteVersionIdentifier,
 ): Promise<Array<AnyOutputFile>> {
   let assetGroups = await sdk.assets.getAssetGroups(remoteVersionIdentifier);
@@ -23,22 +23,22 @@ export async function fetchAssets(
     AssetScale.x1,
   )
 
-  let downloadSpecs = downloads.map((asset) => getDownloadSpec(asset));
+  let downloadSpecs = downloads.map((asset) => getDownloadSpec(asset, basePath));
 
   let paths = new Set<string>()
-  downloadSpecs.map((curr) => {
+  downloadSpecs = downloadSpecs.map((curr) => {
     if (paths.has(curr.fileName)) {
-      console.log("Duplicate found: " + curr.relativePath + curr.fileName);
+      console.log("Duplicate found: " + curr.relativePath.split(basePath)[0] + curr.fileName);
       curr.fileName = curr.fileName.split('.svg')[0] + '_1.svg'
     }
     paths.add(curr.fileName)
     return curr
-  }, paths);
+  });
 
   return downloadSpecs.map(FileHelper.createCopyRemoteFile);
 }
 
-function getDownloadSpec(asset: RenderedAsset): DownloadSpec {
+function getDownloadSpec(asset: RenderedAsset, basePath: string): DownloadSpec {
   let folderName = ''
   if (asset.group.path.length >= 1) {
     folderName = NamingHelper.codeSafeVariableName(asset.group.path, StringCase.snakeCase)
@@ -49,7 +49,7 @@ function getDownloadSpec(asset: RenderedAsset): DownloadSpec {
     folderName = NamingHelper.codeSafeVariableName(asset.group.name, StringCase.snakeCase);
   }
   return {
-    relativePath: './assets/' + folderName,
+    relativePath: basePath + folderName,
     fileName: NamingHelper.codeSafeVariableName(asset.originalName, StringCase.snakeCase) + '.svg',
     url: asset.sourceUrl,
   }

@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "key": "tokensBasePath",
+    "type": "string",
+    "default": "./packages/application/sev_design_tokens/lib/src/",
+    "title": "Token base path",
+    "description": "Where to export the tokens to relative to the given base path"
+  },
+  {
+    "key": "assetsBasePath",
+    "type": "string",
+    "default": "./packages/application/sev_ui/assets/",
+    "title": "Assets base path",
+    "description": "Where to export the assets to relative to the given base path"
+  }
+]

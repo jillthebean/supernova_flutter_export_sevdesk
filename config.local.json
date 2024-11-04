@@ -1,1 +1,4 @@
-{}
+{
+  "tokensBasePath": "packages/application/sev_design_tokens/lib/src",
+  "assetsBasePath": "packages/application/sev_ui/assets"
+}

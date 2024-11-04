@@ -77,7 +77,7 @@ async function applyThemes(
 }
 
 
-export function processTokenData(data) {
+export function processTokenData(data: TokenData, basePath: string) {
   const { tokens, tokenGroups, themeTokens: themes } = data;
   const eta = new Eta({
     debug: true,
@@ -99,42 +99,42 @@ export function processTokenData(data) {
 
   return [
     FileHelper.createTextFile({
-      relativePath: "./src/colors",
+      relativePath: basePath + "/colors",
       fileName: "primitive_colors.dart",
       content: renderPrimitiveColors(eta, primitiveTemplateData),
     }),
     FileHelper.createTextFile({
-      relativePath: "./src/colors",
+      relativePath: basePath + "/colors",
       fileName: "color_scheme.dart",
       content: renderColorScheme(eta, semanticsColorData),
     }),
     FileHelper.createTextFile({
-      relativePath: "./src/shadows",
+      relativePath: basePath + "/shadows",
       fileName: "shadows.dart",
       content: renderShadows(eta, shadowsData),
     }),
     FileHelper.createTextFile({
-      relativePath: "./src/typography",
+      relativePath: basePath + "/typography",
       fileName: "line_heights.dart",
       content: renderConstantsFile(eta, lineHeightData),
     }),
     FileHelper.createTextFile({
-      relativePath: "./src/typography",
+      relativePath: basePath + "/typography",
       fileName: "font_sizes.dart",
       content: renderConstantsFile(eta, fontSizesData),
     }),
     FileHelper.createTextFile({
-      relativePath: "./src/typography",
+      relativePath: basePath + "/typography",
       fileName: "letter_spacings.dart",
       content: renderConstantsFile(eta, letterSpacingData),
     }),
     FileHelper.createTextFile({
-      relativePath: "./src/dimensions",
+      relativePath: basePath + "/dimensions",
       fileName: "spacings.dart",
       content: renderConstantsFile(eta, spacingData),
     }),
     FileHelper.createTextFile({
-      relativePath: "./src/typography",
+      relativePath: basePath + "/typography",
       fileName: "typography.dart",
       content: renderTypographyScheme(eta, typographyTemplateData),
     }),

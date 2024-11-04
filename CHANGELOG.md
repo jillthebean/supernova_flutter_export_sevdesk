@@ -1,6 +1,14 @@
 ### Release Notes
 All the updates to this exporter are documented in this file.
 
+## 1.2.0
+
+Add support for asset export as well as introduce configs accordingly.
+
+## 1.1.7
+
+Upgrade to latest supernova version
+
 ## 1.1.4
 Bugfix for keywords in token.codeNames
 

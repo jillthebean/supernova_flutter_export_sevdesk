@@ -12,7 +12,6 @@ export function createTypography(
   var typographies = new Map<string, FontDescription>();
   for (let typoToken of typoTokens) {
     const variableName = helper.resolveTypoTokenVariableName(typoToken, className);
-    // if (variableName.toLowerCase().indexOf("desktop") != -1) continue;
     typographies[variableName] = tokenToFontDescription(typoToken.value, helper);
   }
 

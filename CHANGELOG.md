@@ -1,6 +1,10 @@
 ### Release Notes
 All the updates to this exporter are documented in this file.
 
+## 1.2.1
+
+- Fix for duplicated base paths when the exporter is run in CI
+
 ## 1.2.0
 
 Add support for asset export as well as introduce configs accordingly.

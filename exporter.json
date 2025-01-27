@@ -1,19 +1,13 @@
 {
-    "id": "de.sevdesk.exporter-flutter",
-    "name": "Flutter Exporter",
-    "description": "Export your design system data into Flutter with our custom theme extension and adjusted color swatches",
-    "author": "JillTheBean",
-    "organization": "sevdesk",
-    "version": "1.2.0",
-    "usesBrands": false,
-    "usesThemes": true,
-    "executable": "/dist/build.js",
-    "engine": "latest",
-    "tags": [
-        "Flutter",
-        "Dart",
-        "Tokens",
-        "Styles",
-        "Themes"
-    ]
+  "id": "de.sevdesk.exporter-flutter",
+  "name": "Flutter Exporter",
+  "description": "Export your design system data into Flutter with our custom theme extension and adjusted color swatches",
+  "author": "JillTheBean",
+  "organization": "sevdesk",
+  "version": "1.2.1",
+  "usesBrands": false,
+  "usesThemes": true,
+  "executable": "/dist/build.js",
+  "engine": "latest",
+  "tags": ["Flutter", "Dart", "Tokens", "Styles", "Themes"]
 }

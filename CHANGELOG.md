@@ -1,5 +1,8 @@
 ### Release Notes
 All the updates to this exporter are documented in this file.
+## 1.2.2
+
+- Set default path according to our needs
 
 ## 1.2.1
 

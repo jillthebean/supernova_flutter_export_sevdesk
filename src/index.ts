@@ -28,11 +28,14 @@ Pulsar.export(
     };
     let assetPath = fixBasePath(
       exportConfiguration.assetsBasePath,
-      "./assets/",
+      "./packages/application/sev_design_tokens/lib/src/",
     );
     const assets = await fetchAssets(sdk, assetPath, remoteVersionIdentifier);
 
-    let tokenPath = fixBasePath(exportConfiguration.tokensBasePath, "./src/");
+    let tokenPath = fixBasePath(
+      exportConfiguration.tokensBasePath,
+      "./packages/application/sev_ui/assets/",
+    );
     const data = await fetchTokenData(sdk, context, remoteVersionIdentifier);
     const tokens = await processTokenData(data, tokenPath);
     return [...assets, ...tokens];

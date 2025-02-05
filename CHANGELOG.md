@@ -1,5 +1,9 @@
 ### Release Notes
 All the updates to this exporter are documented in this file.
+## 1.2.3
+
+- Updated all supernova packages
+
 ## 1.2.2
 
 - Set default path according to our needs

@@ -1,6 +1,6 @@
 {
   "name": "@sevdesk/flutter-exporter",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "description": "sevdesk internal exporter",
   "main": "index.js",
   "scripts": {
@@ -12,13 +12,13 @@
   "author": "jillybean",
   "license": "MIT",
   "dependencies": {
-    "@supernovaio/export-helpers": "1.0.16",
-    "@supernovaio/sdk-exporters": "2.0.23",
+    "@supernovaio/export-helpers": "1.0.30",
+    "@supernovaio/sdk-exporters": "2.0.32",
     "eta": "^3.5.0"
   },
   "devDependencies": {
-    "@supernovaio/cli": "1.1.0",
-    "@supernovaio/supernova-sdk": "^1.9.36",
+    "@supernovaio/cli": "1.1.4",
+    "@supernovaio/supernova-sdk": "^1.9.40",
     "@types/node": "^22.8.4",
     "buffer": "^6.0.3",
     "console-browserify": "^1.2.0",
